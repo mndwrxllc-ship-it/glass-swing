@@ -7,10 +7,6 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode {
-        PREFER_SETTINGS()
-        FAIL_ON_PROJECT_REPOS()
-    }
     repositories {
         google()
         mavenCentral()
