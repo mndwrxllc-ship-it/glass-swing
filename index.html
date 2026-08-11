@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a12" />
+  <meta name="description" content="Swing your phone to shatter virtual glass!" />
+  <title>Glass Swing</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Preload the most common sound -->
+  <audio id="glass-sound-1" src="glass-break-window.wav" preload="auto"></audio>
+  <audio id="glass-sound-2" src="glass-break-rock.wav" preload="auto"></audio>
+  <audio id="glass-sound-3" src="glass-break-glass_break.wav" preload="auto"></audio>
+  <!-- PWA install prompt -->
+  <script>
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('install-btn').style.display = 'block';
+    });
+    function installApp() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => deferredPrompt = null);
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <!-- Loading screen -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="glass-pane">
+        <div class="glass-pane-inner">
+          <h1>GLASS SWING</h1>
+          <div class="swing-hint">Loading…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main display -->
+    <div id="main-display" class="main-display hidden">
+      <div class="glass-wall" id="glass-wall">
+        <div class="glass-pane" id="glass-pane">
+          <div class="glass-pane-inner">
+            <div class="grid"></div>
+          </div>
+        </div>
+        <div class="glass-crack" id="glass-crack"></div>
+      </div>
+
+      <div class="controls">
+        <button id="permission-btn" class="btn btn-primary">
+          Tap to Enable Swing Detection
+        </button>
+        <button id="install-btn" class="btn btn-secondary" onclick="installApp()" style="display: none;">
+          Install App
+        </button>
+        <div class="status" id="status">Waiting for permission…</div>
+        <div class="hint">Swing your phone like a baseball bat</div>
+      </div>
+    </div>
+
+    <!-- Cracked / shattered state -->
+    <div id="shatter-screen" class="shatter-screen hidden">
+      <div class="shatter-overlay" id="shatter-overlay"></div>
+      <div class="shatter-content">
+        <h2>💥 SHATTERED 💥</h2>
+        <p class="subtitle">That was too easy.</p>
+        <button class="btn btn-primary" onclick="resetGlass()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

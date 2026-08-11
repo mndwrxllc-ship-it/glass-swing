@@ -1,0 +1,313 @@
+/* ===== BASE ===== */
+:root {
+  --bg: #0a0a12;
+  --panel: #1a1a24;
+  --accent: #4fc3f7;
+  --glass: rgba(173, 216, 255, 0.18);
+  --glass-tint: rgba(173, 216, 255, 0.35);
+  --danger: #ff5252;
+  --text: #e0e0e0;
+  --muted: #888;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: radial-gradient(circle at 30% 30%, #15151e 0%, var(--bg) 70%);
+}
+
+.container {
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  perspective: 1000px;
+}
+
+/* ===== LOADING ===== */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  background: var(--bg);
+}
+
+.glass-pane {
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border: 1px solid var(--glass-tint);
+  border-radius: 24px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 60px rgba(255, 255, 255, 0.15);
+  padding: 2.5rem 3rem;
+  text-align: center;
+  min-width: 280px;
+}
+
+.glass-pane-inner h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 30px rgba(79, 195, 247, 0.3);
+}
+
+.swing-hint {
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+/* ===== MAIN DISPLAY ===== */
+.main-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* ===== GLASS WALL ===== */
+.glass-wall {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 400px;
+  margin: 0 auto;
+  perspective: 800px;
+}
+
+.glass-pane {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border: 1px solid var(--glass-tint);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 60px rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: rotateX(5deg);
+  transition: transform 0.3s ease;
+}
+
+.glass-pane:hover {
+  transform: rotateX(0deg) scale(1.02);
+}
+
+/* Grid pattern for glass texture */
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(173, 216, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(173, 216, 255, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.4;
+}
+
+/* Crack overlay */
+.glass-crack {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath d='M200 0 L200 200 L150 150 M250 150 L200 200 L250 250 M200 200 L300 120 M200 200 L100 280' stroke='%23fff' stroke-width='3' stroke-opacity='0.7' fill='none'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: screen;
+}
+
+.glass-crack.active {
+  opacity: 0.8;
+  animation: flicker 0.1s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.6; }
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.btn {
+  width: 100%;
+  max-width: 320px;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, #2979ff 100%);
+  color: white;
+  box-shadow: 0 4px 20px rgba(79, 195, 247, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(79, 195, 247, 0.6);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--glass-tint);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary:hover {
+  background: #2a2a38;
+  transform: translateY(-2px);
+}
+
+.status {
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-align: center;
+  min-height: 1.3rem;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: center;
+  font-style: italic;
+}
+
+/* ===== SHATTER SCREEN ===== */
+.shatter-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.shatter-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(173,216,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+  animation: flash 0.5s ease-out;
+}
+
+@keyframes flash {
+  0% { background: white; opacity: 0.8; }
+  10% { background: white; opacity: 0.4; }
+  100% { background: transparent; opacity: 0; }
+}
+
+.shatter-content {
+  text-align: center;
+  z-index: 10;
+}
+
+.shatter-content h2 {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #fff 0%, var(--danger) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 40px rgba(255, 82, 82, 0.4);
+}
+
+.shatter-content .subtitle {
+  color: var(--muted);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+/* ===== HIDDEN ===== */
+.hidden {
+  display: none !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .glass-pane h1 {
+    font-size: 2.2rem;
+  }
+  .shatter-content h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* ===== PULSE ANIMATION FOR ACTIVITY ===== */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ===== ACCELEROMETER VIS ===== */
+.accel-vis {
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-family: monospace;
+  opacity: 0.5;
+}
