@@ -112,11 +112,13 @@ function requestPermission() {
       })
       .catch(err => {
         console.error('Permission error:', err);
-        updateStatus('Error requesting permission.', true);
+        updateStatus('Error requesting permission. Try Chrome browser.', true);
       });
-  } else {
-    // Android, desktop — just start
+  } else if (typeof DeviceMotionEvent !== 'undefined') {
+    // Android Chrome, desktop — start directly
     startAccelerometer();
+  } else {
+    updateStatus('Motion sensor not available. Try Chrome on Android.', true);
   }
 }
 
@@ -137,6 +139,19 @@ function startAccelerometer() {
 
   setTimeout(() => {
     el.glassPane.classList.remove('pulse');
+  }, 3000);
+
+  // Warn if no motion events received (likely HTTPS requirement)
+  setTimeout(() => {
+    if (state.accelHistory.length === 0 && state.enabled) {
+      const isLocalHttp = location.protocol === 'http:' &&
+        (location.hostname === 'localhost' || location.hostname.match(/^(\d+\.){3}\d+$/));
+      if (!isLocalHttp) {
+        updateStatus('No motion detected. Chrome requires HTTPS for sensors on non-localhost.', true);
+      } else {
+        updateStatus('No motion yet. Try actually moving your phone.', false);
+      }
+    }
   }, 3000);
 }
 
