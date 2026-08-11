@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:elevation="4">
+        android:elevation="4dp">
 
         <!-- Glass pane background -->
         <ImageView
