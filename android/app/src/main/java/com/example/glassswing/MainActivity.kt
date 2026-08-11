@@ -55,10 +55,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     // Handler for UI effects
     private val handler = Handler(Looper.getMainLooper())
 
-    companion {
-        const val REQUEST_CODE = 1
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
