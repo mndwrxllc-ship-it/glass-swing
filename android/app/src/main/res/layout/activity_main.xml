@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0a0a12">
+
+    <!-- Glass Pane (main display) -->
+    <FrameLayout
+        android:id="@+id/glassContainer"
+        android:layout_width="320dp"
+        android:layout_height="380dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="4">
+
+        <!-- Glass pane background -->
+        <ImageView
+            android:id="@+id/glassPane"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/glass_pane_bg"
+            android:layout_margin="8dp"
+            android:background="@drawable/glass_rounded" />
+
+        <!-- Crack overlay (shown when broken) -->
+        <ImageView
+            android:id="@+id/crackOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/crack_overlay"
+            android:background="@drawable/glass_rounded"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
+    <!-- Swing Button -->
+    <ImageButton
+        android:id="@+id/swingBtn"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#4fc3f7"
+        android:src="@drawable/ic_swing"
+        android:contentDescription="Enable Swing Detection"
+        app:layout_constraintTop_toBottomOf="@id/glassContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Reset Button -->
+    <ImageButton
+        android:id="@+id/resetBtn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#ff5252"
+        android:src="@drawable/ic_reset"
+        android:contentDescription="Reset Glass"
+        app:layout_constraintTop_toBottomOf="@id/swingBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Status Text -->
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Tap to enable swing detection"
+        android:textColor="#888888"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/resetBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

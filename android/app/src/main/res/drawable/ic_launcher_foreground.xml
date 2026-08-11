@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#0a0a12"
+        android:pathData="M0,0h108v108h-108z" />
+    <!-- Glass pane -->
+    <path
+        android:fillColor="#29b6f6"
+        android:fillAlpha="0.3"
+        android:pathData="M28,28v52h52v-52h-52zM28,80v20h52v-20h-52z" />
+    <path
+        android:strokeColor="#ffffff"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.6"
+        android:fillColor="#00000000"
+        android:pathData="M28,28v52h52v-52h-52z" />
+    <!-- Crack -->
+    <path
+        android:strokeColor="#ffffffff"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.9"
+        android:fillColor="#00000000"
+        android:pathData="M54,28 v30 l-20,20 M54,28 v30 l20,20" />
+</vector>
